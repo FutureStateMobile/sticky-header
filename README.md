@@ -10,12 +10,14 @@ How to use it
 
 Just include the javascript file in your page
 
+```html
   <head>
     <script src='fsm-sticky-header.js'></src>
   </head>
-  
+```
 Then add the directive to the element that you with to stick to the top of the page
 
+```html
   <table id="testtable" >
     <thead>
       <tr fsm-sticky-header content-selector='"#testtable"' top-of-page='50'>
@@ -35,9 +37,12 @@ Then add the directive to the element that you with to stick to the top of the p
       ...
     </tbody>
   </table>
-  
+```
+
 Options
 --------
 
-*content-selector - this is the element jquery selector the the header should stick on top of
-*top-of-page - this is how many pixels from the top of the page it should stick at.  In case you have a header on the top of your page.
+* content-selector
+   * this is the element jquery selector the the header should stick on top of
+* top-of-page
+   * this is how many pixels from the top of the page it should stick at.  In case you have a header on the top of your page.
