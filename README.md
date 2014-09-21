@@ -14,7 +14,7 @@ Just include the javascript file in your page
 
 ```html
   <head>
-    	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.2/angular.min.js"></script>
 	<script src="https://rawgithub.com/FutureStateMobile/sticky-headers/master/src/fsm-sticky-headers.js"></script>
   </head>
