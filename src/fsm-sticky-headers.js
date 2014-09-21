@@ -24,7 +24,7 @@ angular.module('fsm', [])
 		    		position: 'fixed',
       				'z-index': 10001,
       				visibility: 'hidden',
-      				'box-shadow': '2px 2px 2px #888888'
+      				'box-shadow': '0 2px 4px 0 rgba(0,0,0,.15)'
 		    	});
 
 			function updateStickyHeader(){
