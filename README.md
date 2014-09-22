@@ -5,7 +5,7 @@ An AngularJS directive for making headers that don't scroll past the top of the 
 
 <img src='https://cloud.githubusercontent.com/assets/353374/4347573/9297aa8e-415c-11e4-9bd5-7706c0e21716.png'/>
 
-[Demo Page](http://cdn.rawgit.com/FutureStateMobile/sticky-headers/master/demo/index.html)
+[Demo Page](http://rawgit.com/FutureStateMobile/sticky-headers/master/demo/index.html)
 
 How to use it
 -------------
