@@ -1,7 +1,7 @@
 sticky-headers
 ==============
 
-An AngularJS directive for making headers that don't scroll past the top of the screen.
+An AngularJS directive for making headers that won't scroll past the top of the screen.
 
 <img src='https://cloud.githubusercontent.com/assets/353374/4347573/9297aa8e-415c-11e4-9bd5-7706c0e21716.png'/>
 
@@ -10,7 +10,7 @@ An AngularJS directive for making headers that don't scroll past the top of the 
 How to use it
 -------------
 
-Just include the javascript file in your page
+Just include jquery, angular, and the sticky-headers javascript file in your page
 
 ```html
   <head>
@@ -47,6 +47,6 @@ Options
 --------
 
 * content-selector
-   * this is the element jquery selector the the header should stick on top of
+   * this is the JQuery selector of the element that your header should be bound to.  Once that element leave the page complely, your header will disapear
 * top-of-page
-   * this is how many pixels from the top of the page it should stick at.  In case you have a header on the top of your page.
+   * this is how many pixels from the top of the page your elment will stop scrolling at, just in case you have a header on the top of your page.
