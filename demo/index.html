@@ -4,6 +4,7 @@
 		<style>
 			body, html {
 				height: 100%;
+				font-family: verdana;
 				overflow-x: hidden;
 				padding: 0;
 				margin: 0;
@@ -12,13 +13,21 @@
 			.header {
 				position: fixed;
 				width: 100%;
-				height: 50px;
+				height: 40px;
 				background-color: #FFF;
 				color: #262626;
 				box-shadow: 250px 2px 4px 0 rgba(0,0,0,.15);
 				text-align: center;
 				z-index: 10001;
 				overflow: none;
+			}
+			.header .logo {
+				background: #FFF no-repeat center center fixed;
+				position: fixed;
+				height: 35px;
+				width: 150px;
+				left: 45px;
+				top: 3px;
 			}
 			.menu {
 				border-top: 1px solid #d8d8d8;
@@ -27,11 +36,27 @@
 				box-shadow: 0px 0px 2px 2px rgba(0,0,0,.15);
 				width: 250px;
 				position: fixed;
-				top: 50px;
+				top: 40px;
 				left: 0px;
 				bottom: 0px;
 				overflow-x: none;
 				overflow-y: auto;
+			}
+			.menu-button {
+				position: fixed;
+				left: 0px;
+				top: 0px;
+				width: 40px;
+				height: 40px;
+				color: #FFF;
+				background: #000;
+				cursor: pointer;
+			}
+			.menu-button i {
+				position: absolute;
+				left: 0px;
+				top: 4px;
+
 			}
 			.pageContent {
 				padding: 20px;
@@ -39,14 +64,13 @@
 				min-height: 100%;
 				width: auto;
 				position: absolute;
-				top: 50px;
+				top: 40px;
 				left: 250px;
 				overflow-x: none;
 				overflow-y: on;
 			}
 
 			.section {
-				border: 1px solid #d8d8d8;
 				box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
 				background-color: #FFF;
 				width: auto;
@@ -54,38 +78,51 @@
 
 			table {
 				border-collapse: collapse;
-				/*border: 1px solid #d8d8d8;*/
 				box-shadow: 0px 2px 4px 0 rgba(0,0,0,.15);
 				background-color: #FFF;
+				border-radius: 2px;
 			}
 
 			th { 
-			  background-color: lightgrey; 
-			  padding: 10px; 
-			  width: 205px; 
-			  text-align: left;
+				border-top: 1px solid #d8d8d8;
+				background-color: #eee; 
+				padding: 10px; 
+				width: 205px; 
+				text-align: left;
+			}
+
+			tr {
+				border-top: 1px solid #d8d8d8;
 			}
 
 			tr:nth-child(odd) {
-			  background: #eee;
+				background: #eee;
 			}
 
 			td { 
-			  padding: 10px; 
-			  width: 200px; 
+				padding: 10px; 
+				width: 200px; 
 			}
 
 			.text-area {
-			  margin: 30px 0;
-			  line-height: 2;
+				margin: 20px 0;
+				line-height: 1.5;
+				border-radius: 2px;
 			}
-			h2 {
-			  background: #F1F1F1;
-			  padding: 10px;
-			  font: 28px Georgia, Serif;
-			  margin: 0 0 20px 0;
-			}			
+
+			.text-area > h2 {
+				border-top: 1px solid #d8d8d8;
+				background: #F1F1F1;
+				padding: 10px;
+				font: 28px Verdana, Serif;
+				margin: 0 0 20px 0;
+			}
+
+			.text-area .text-content {
+				padding: 2px;
+			}
 		</style>
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.2/angular.min.js"></script>
 		<script src="http://rawgithub.com/FutureStateMobile/sticky-headers/master/src/fsm-sticky-headers.js"></script>
@@ -96,7 +133,13 @@
 		</script>
 	</head>
 	<body >
-		<div class="header" >Header</div>
+		<div class="header" >
+			<div class="logo" >
+			</div>
+			<div class="menu-button">
+				<i class="fa fa-bars fa-2x"></i>
+			</div>
+		</div>
 		<div class="menu">
 			Menu
 			<ul>
@@ -107,7 +150,7 @@
 		<div class="pageContent">
 			<table id="testtable" >
 		        <thead>
-		          <tr fsm-sticky-header content-selector='"#testtable"' top-of-page='50'>
+		          <tr fsm-sticky-header content-selector='"#testtable"' top-of-page='40'>
 		             <th>Column One Header</th>
 		             <th>Column Two Header</th>
 		          </tr>
@@ -158,42 +201,47 @@
 
 			<div id="area1" class="section text-area">
 		      
-		        <h2 fsm-sticky-header content-selector='"#area1"' top-of-page='50'>Just a block of text</h2>
-				<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at commodo neque, in pellentesque massa. Quisque nibh nisi, eleifend at finibus quis, euismod in metus. Vestibulum sit amet ultricies enim. Nullam odio elit, sollicitudin non varius sit amet, pretium eu metus. Mauris lacinia feugiat odio, et bibendum ligula consectetur et. Proin aliquet eros vel pulvinar mattis. Cras a rutrum lorem, ut luctus dolor. Sed vel eros ut orci sagittis euismod. Curabitur gravida elit sit amet mi rhoncus malesuada.
-				</p>
-				<p>
-				Nunc non massa vel odio tempor hendrerit ut id erat. Nunc auctor mattis sem in gravida. Vestibulum finibus vehicula purus nec gravida. Sed ac vehicula massa, id tristique tortor. Proin euismod, libero non consectetur consectetur, urna nulla dignissim urna, vel laoreet lectus lorem a dui. Proin ac est mauris. Cras et nisl id velit vulputate posuere. Cras convallis bibendum ligula non accumsan.
-				</p>
-				<p>
-				Nunc auctor, velit a gravida iaculis, turpis augue egestas purus, sit amet laoreet eros arcu quis nisl. Suspendisse pellentesque in dolor nec rutrum. Nullam dictum imperdiet luctus. Sed et efficitur urna. Pellentesque volutpat sagittis nisi, sodales interdum nulla mattis a. Etiam vitae elit ac nibh tempor tristique. Nullam quis diam mi. Etiam pretium vel erat sed porta.
-				</p>
-				<p>
-				Donec finibus ut nunc ut ultricies. Duis a felis dui. Nullam ante odio, commodo at posuere eget, tristique at orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas facilisis magna et libero sodales convallis. Fusce et tincidunt nisi. Nulla vitae egestas risus. Nunc rutrum nisl et posuere eleifend. Phasellus ac nisl ut orci suscipit tincidunt.
-				</p>
-				<p>
-				Vivamus vitae molestie metus. Aenean ac nisi sed sem efficitur aliquam. Nunc varius justo sed ante blandit, ac luctus eros ullamcorper. Mauris lacus purus, cursus at nisi eu, ultricies luctus augue. Proin tristique tempor velit sit amet venenatis. Suspendisse potenti. Sed congue turpis sit amet risus facilisis, non laoreet nunc condimentum. Vivamus ornare orci bibendum nisl iaculis accumsan. Mauris volutpat fermentum enim, ac tristique metus vehicula a.
-				</p>		      
+		        <h2 fsm-sticky-header content-selector='"#area1"' top-of-page='40'>Just a block of text</h2>
+		        <div class="text-content"> 
+					<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at commodo neque, in pellentesque massa. Quisque nibh nisi, eleifend at finibus quis, euismod in metus. Vestibulum sit amet ultricies enim. Nullam odio elit, sollicitudin non varius sit amet, pretium eu metus. Mauris lacinia feugiat odio, et bibendum ligula consectetur et. Proin aliquet eros vel pulvinar mattis. Cras a rutrum lorem, ut luctus dolor. Sed vel eros ut orci sagittis euismod. Curabitur gravida elit sit amet mi rhoncus malesuada.
+					</p>
+					<p>
+					Nunc non massa vel odio tempor hendrerit ut id erat. Nunc auctor mattis sem in gravida. Vestibulum finibus vehicula purus nec gravida. Sed ac vehicula massa, id tristique tortor. Proin euismod, libero non consectetur consectetur, urna nulla dignissim urna, vel laoreet lectus lorem a dui. Proin ac est mauris. Cras et nisl id velit vulputate posuere. Cras convallis bibendum ligula non accumsan.
+					</p>
+					<p>
+					Nunc auctor, velit a gravida iaculis, turpis augue egestas purus, sit amet laoreet eros arcu quis nisl. Suspendisse pellentesque in dolor nec rutrum. Nullam dictum imperdiet luctus. Sed et efficitur urna. Pellentesque volutpat sagittis nisi, sodales interdum nulla mattis a. Etiam vitae elit ac nibh tempor tristique. Nullam quis diam mi. Etiam pretium vel erat sed porta.
+					</p>
+					<p>
+					Donec finibus ut nunc ut ultricies. Duis a felis dui. Nullam ante odio, commodo at posuere eget, tristique at orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas facilisis magna et libero sodales convallis. Fusce et tincidunt nisi. Nulla vitae egestas risus. Nunc rutrum nisl et posuere eleifend. Phasellus ac nisl ut orci suscipit tincidunt.
+					</p>
+					<p>
+					Vivamus vitae molestie metus. Aenean ac nisi sed sem efficitur aliquam. Nunc varius justo sed ante blandit, ac luctus eros ullamcorper. Mauris lacus purus, cursus at nisi eu, ultricies luctus augue. Proin tristique tempor velit sit amet venenatis. Suspendisse potenti. Sed congue turpis sit amet risus facilisis, non laoreet nunc condimentum. Vivamus ornare orci bibendum nisl iaculis accumsan. Mauris volutpat fermentum enim, ac tristique metus vehicula a.
+					</p>
+				</div>
+      
 			</div>
       
 			<div id="area2" class="section text-area">
 		      
-		        <h2 fsm-sticky-header content-selector='"#area2"' top-of-page='50'>Another block of text</h2>
-				<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at commodo neque, in pellentesque massa. Quisque nibh nisi, eleifend at finibus quis, euismod in metus. Vestibulum sit amet ultricies enim. Nullam odio elit, sollicitudin non varius sit amet, pretium eu metus. Mauris lacinia feugiat odio, et bibendum ligula consectetur et. Proin aliquet eros vel pulvinar mattis. Cras a rutrum lorem, ut luctus dolor. Sed vel eros ut orci sagittis euismod. Curabitur gravida elit sit amet mi rhoncus malesuada.
-				</p>
-				<p>
-				Nunc non massa vel odio tempor hendrerit ut id erat. Nunc auctor mattis sem in gravida. Vestibulum finibus vehicula purus nec gravida. Sed ac vehicula massa, id tristique tortor. Proin euismod, libero non consectetur consectetur, urna nulla dignissim urna, vel laoreet lectus lorem a dui. Proin ac est mauris. Cras et nisl id velit vulputate posuere. Cras convallis bibendum ligula non accumsan.
-				</p>
-				<p>
-				Nunc auctor, velit a gravida iaculis, turpis augue egestas purus, sit amet laoreet eros arcu quis nisl. Suspendisse pellentesque in dolor nec rutrum. Nullam dictum imperdiet luctus. Sed et efficitur urna. Pellentesque volutpat sagittis nisi, sodales interdum nulla mattis a. Etiam vitae elit ac nibh tempor tristique. Nullam quis diam mi. Etiam pretium vel erat sed porta.
-				</p>
-				<p>
-				Donec finibus ut nunc ut ultricies. Duis a felis dui. Nullam ante odio, commodo at posuere eget, tristique at orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas facilisis magna et libero sodales convallis. Fusce et tincidunt nisi. Nulla vitae egestas risus. Nunc rutrum nisl et posuere eleifend. Phasellus ac nisl ut orci suscipit tincidunt.
-				</p>
-				<p>
-				Vivamus vitae molestie metus. Aenean ac nisi sed sem efficitur aliquam. Nunc varius justo sed ante blandit, ac luctus eros ullamcorper. Mauris lacus purus, cursus at nisi eu, ultricies luctus augue. Proin tristique tempor velit sit amet venenatis. Suspendisse potenti. Sed congue turpis sit amet risus facilisis, non laoreet nunc condimentum. Vivamus ornare orci bibendum nisl iaculis accumsan. Mauris volutpat fermentum enim, ac tristique metus vehicula a.
-				</p>		      
+		        <h2 fsm-sticky-header content-selector='"#area2"' top-of-page='40'>Another block of text</h2>
+				<div class="text-content"> 
+					<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at commodo neque, in pellentesque massa. Quisque nibh nisi, eleifend at finibus quis, euismod in metus. Vestibulum sit amet ultricies enim. Nullam odio elit, sollicitudin non varius sit amet, pretium eu metus. Mauris lacinia feugiat odio, et bibendum ligula consectetur et. Proin aliquet eros vel pulvinar mattis. Cras a rutrum lorem, ut luctus dolor. Sed vel eros ut orci sagittis euismod. Curabitur gravida elit sit amet mi rhoncus malesuada.
+					</p>
+					<p>
+					Nunc non massa vel odio tempor hendrerit ut id erat. Nunc auctor mattis sem in gravida. Vestibulum finibus vehicula purus nec gravida. Sed ac vehicula massa, id tristique tortor. Proin euismod, libero non consectetur consectetur, urna nulla dignissim urna, vel laoreet lectus lorem a dui. Proin ac est mauris. Cras et nisl id velit vulputate posuere. Cras convallis bibendum ligula non accumsan.
+					</p>
+					<p>
+					Nunc auctor, velit a gravida iaculis, turpis augue egestas purus, sit amet laoreet eros arcu quis nisl. Suspendisse pellentesque in dolor nec rutrum. Nullam dictum imperdiet luctus. Sed et efficitur urna. Pellentesque volutpat sagittis nisi, sodales interdum nulla mattis a. Etiam vitae elit ac nibh tempor tristique. Nullam quis diam mi. Etiam pretium vel erat sed porta.
+					</p>
+					<p>
+					Donec finibus ut nunc ut ultricies. Duis a felis dui. Nullam ante odio, commodo at posuere eget, tristique at orci. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas facilisis magna et libero sodales convallis. Fusce et tincidunt nisi. Nulla vitae egestas risus. Nunc rutrum nisl et posuere eleifend. Phasellus ac nisl ut orci suscipit tincidunt.
+					</p>
+					<p>
+					Vivamus vitae molestie metus. Aenean ac nisi sed sem efficitur aliquam. Nunc varius justo sed ante blandit, ac luctus eros ullamcorper. Mauris lacus purus, cursus at nisi eu, ultricies luctus augue. Proin tristique tempor velit sit amet venenatis. Suspendisse potenti. Sed congue turpis sit amet risus facilisis, non laoreet nunc condimentum. Vivamus ornare orci bibendum nisl iaculis accumsan. Mauris volutpat fermentum enim, ac tristique metus vehicula a.
+					</p>
+				</div>
 			</div>
 		</div>
 	</body>
