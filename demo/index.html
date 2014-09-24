@@ -90,8 +90,7 @@
 			th { 
 				background-color: #eee; 
 				padding: 10px; 
-				width: 205px; 
-				text-align: left;
+				/*text-align: left;*/
 			}
 
 			tr {
@@ -104,7 +103,6 @@
 
 			td { 
 				padding: 10px; 
-				width: 200px; 
 			}
 
 			.text-area {
@@ -153,58 +151,69 @@
 		<div class="pageContent">
 			<table id="testtable" >
 		        <thead>
-		          <tr fsm-sticky-header content-selector='"#testtable"' top-of-page='40'>
-		             <th>Column One Header</th>
-		             <th>Column Two Header</th>
-		          </tr>
+		        	<tr fsm-sticky-header scroll-body="'#testtable'" scroll-stop="40">
+		            	<th>Column One</th>
+		            	<th>Column Two</th>
+						<th>Column Three</th>		             
+		        	</tr>
 		        </thead>
 		        <tbody>
 		          <tr>
 		             <td>table1 data1</td>
 		             <td>table1 data1</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 		          <tr>
 		             <td>table1 data2</td>
 		             <td>table1 data2</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 		          <tr>
 		             <td>table1 data3</td>
 		             <td>table1 data3</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 		          <tr>
 		             <td>table1 data4</td>
 		             <td>table1 data4</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 		          <tr>
 		             <td>table1 data5</td>
 		             <td>table1 data5</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 		          <tr>
 		             <td>table1 data6</td>
 		             <td>table1 data6</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 		          <tr>
 		             <td>table1 data7</td>
 		             <td>table1 data7</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 		          <tr>
 		             <td>table1 data8</td>
 		             <td>table1 data8</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 		          <tr>
 		             <td>table1 data9</td>
 		             <td>table1 data9</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 		          <tr>
 		             <td>table1 data10</td>
 		             <td>table1 data10</td>
+		             <td>Something really long so the header width is inconsistent.</td>
 		          </tr>
 				</tbody>
 			</table>
 
 			<div id="area1" class="section text-area">
 		      
-		        <h2 fsm-sticky-header content-selector='"#area1"' top-of-page='40'>Just a block of text</h2>
+		        <h2 fsm-sticky-header scroll-body="'#area1'" scroll-stop="40">Just a block of text</h2>
 		        <div class="text-content"> 
 					<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at commodo neque, in pellentesque massa. Quisque nibh nisi, eleifend at finibus quis, euismod in metus. Vestibulum sit amet ultricies enim. Nullam odio elit, sollicitudin non varius sit amet, pretium eu metus. Mauris lacinia feugiat odio, et bibendum ligula consectetur et. Proin aliquet eros vel pulvinar mattis. Cras a rutrum lorem, ut luctus dolor. Sed vel eros ut orci sagittis euismod. Curabitur gravida elit sit amet mi rhoncus malesuada.
@@ -227,7 +236,7 @@
       
 			<div id="area2" class="section text-area">
 		      
-		        <h2 fsm-sticky-header content-selector='"#area2"' top-of-page='40'>Another block of text</h2>
+		        <h2 fsm-sticky-header scroll-body="'#area2'" scroll-stop="40">Another block of text</h2>
 				<div class="text-content"> 
 					<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at commodo neque, in pellentesque massa. Quisque nibh nisi, eleifend at finibus quis, euismod in metus. Vestibulum sit amet ultricies enim. Nullam odio elit, sollicitudin non varius sit amet, pretium eu metus. Mauris lacinia feugiat odio, et bibendum ligula consectetur et. Proin aliquet eros vel pulvinar mattis. Cras a rutrum lorem, ut luctus dolor. Sed vel eros ut orci sagittis euismod. Curabitur gravida elit sit amet mi rhoncus malesuada.
