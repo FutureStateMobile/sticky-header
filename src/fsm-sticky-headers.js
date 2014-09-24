@@ -1,55 +1,78 @@
 angular.module('fsm', [])
-.directive('fsmStickyHeader', function(){
-	return {
-		restrict: 'EA',
-		replace: false,
-		scope: { 
-			topOfPage: '=',
-			contentSelector: '='
-		},
-		link: function(scope, element, attributes, control){
-			var header = $(element);
-			var stickyBody = $(scope.contentSelector);
-			var clonedHeader = header.clone();
+.directive('fsmStickyHeader', function () {
+    return {
+        restrict: 'EA',
+        replace: false,
+        scope: {
+            scrollBody: '=',
+            scrollStop: '=',
+            scrollableElement: '='
+        },
+        link: function (scope, element) {
+            var header = $(element);
+            var scrollBody = $(scope.scrollBody) || $('body,html');
+            var scrollableElement = $(scope.scrollableElement) || $(window);
+            var clonedHeader = header.clone();
+            var scrollStop = scope.scrollStop || 0;
+            var isVisible = false;
 
-			function initialize(){
-				clonedHeader.css({
-		    		top: scope.topOfPage,
-		    		position: 'fixed',
-	  				'z-index': 10001,
-	  				visibility: 'hidden'
-		    	});
-		    	clonedHeader.addClass( 'sticky-header' );
+            function initialize() {
+                clonedHeader.css({
+                    top: scope.scrollStop,
+                    position: 'fixed',
+                    'z-index': 10001,
+                    visibility: 'hidden'
+                });
+                clonedHeader.addClass('sticky-header');
 
-				calculateSize();
+                calculateSize();
 
-				// Attach the new header beside the original one in the dom
-				header.after(clonedHeader);
-			};
+                // Attach the new header beside the original one in the dom
+                header.after(clonedHeader);
+            };
 
-			function determineVisibility(){
-				var offset = stickyBody.offset();
-				var scrollTop = $(window).scrollTop() + scope.topOfPage;
+            function determineVisibility() {
+                var offset = scrollBody.offset();
+                var scrollStopTop = $(window).scrollTop() + scrollStop;
+                var shouldBeVisible = ((scrollStopTop > offset.top) && (scrollStopTop < offset.top + scrollBody.height()));
 
-				if ((scrollTop > offset.top) && (scrollTop < offset.top + stickyBody.height())) {
-					clonedHeader.css({ "visibility": "visible"});
-				} else {
-					clonedHeader.css( {"visibility": "hidden"} );      
-				};
-			};
+                if (shouldBeVisible == isVisible) {
+                    return;
+                } else {
+                    if (shouldBeVisible) {
+                        clonedHeader.css({ "visibility": "visible" });
+                    } else {
+                        clonedHeader.css({ "visibility": "hidden" });
+                    };
 
-			function calculateSize(){
-				clonedHeader.css({
-		    		width: header.width(),
-		    		left: header.offset().left
-				});
-			};
+                    isVisible = shouldBeVisible;
+                    calculateSize();
+                }
+            };
 
-			$( window ).scroll( determineVisibility ).trigger( "scroll" );
+            function calculateSize() {
+                clonedHeader.css({
+                    width: header.width(),
+                    left: header.offset().left
+                });
 
-			$( window ).resize(calculateSize);
+                setColumnHeaderSizes();
+            };
 
-			initialize();
-		}
-	};
+            function setColumnHeaderSizes() {
+                if (clonedHeader.is('tr')) {
+                    var clonedColumns = clonedHeader.find('th');
+                    header.find('th').each(function (index, column) {
+                        clonedColumns[index].width = column.offsetWidth;
+                    });
+                }
+            }
+
+            scrollableElement.scroll(determineVisibility).trigger("scroll");
+
+            $(window).resize(calculateSize);
+
+            initialize();
+        }
+    };
 });
