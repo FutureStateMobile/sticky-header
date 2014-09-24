@@ -10,11 +10,14 @@ angular.module('fsm', [])
         },
         link: function (scope, element) {
             var header = $(element);
-            var scrollBody = $(scope.scrollBody) || $('body,html');
-            var scrollableElement = $(scope.scrollableElement) || $(window);
             var clonedHeader = header.clone();
             var scrollStop = scope.scrollStop || 0;
             var isVisible = false;
+            var scrollBody = scope.scrollBody || 'body,html';
+            var scrollableElement = scope.scrollableElement || window;
+
+            scrollBody = $(scrollBody);
+            scrollableElement = $(scrollableElement);
 
             function initialize() {
                 clonedHeader.css({
