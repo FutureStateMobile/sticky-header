@@ -5,7 +5,7 @@ An AngularJS directive for making headers that won't scroll past the top of the 
 
 <img src='https://cloud.githubusercontent.com/assets/353374/4347573/9297aa8e-415c-11e4-9bd5-7706c0e21716.png'/>
 
-[Demo Page](http://rawgit.com/FutureStateMobile/sticky-headers/master/demo/index.html)
+[Demo Page](http://rawgit.com/FutureStateMobile/sticky-header/master/demo/index.html)
 
 How to use it
 -------------
@@ -16,7 +16,7 @@ Just include jquery, angular, and the sticky-headers javascript file in your pag
   <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.2/angular.min.js"></script>
-	<script src="https://rawgithub.com/FutureStateMobile/sticky-headers/master/src/fsm-sticky-headers.js"></script>
+	<script src="https://rawgithub.com/FutureStateMobile/sticky-headers/master/src/fsm-sticky-header.js"></script>
   </head>
 ```
 Then add the directive to the element that you with to stick to the top of the page
@@ -24,7 +24,7 @@ Then add the directive to the element that you with to stick to the top of the p
 ```html
   <table id="testtable" >
     <thead>
-      <tr fsm-sticky-header content-selector='"#testtable"' top-of-page='50'>
+      <tr fsm-sticky-header scroll-body="'#testtable'" scroll-stop='50'>
          <th>Column One Header</th>
          <th>Column Two Header</th>
       </tr>
@@ -46,7 +46,9 @@ Then add the directive to the element that you with to stick to the top of the p
 Options
 --------
 
-* content-selector
+* scroll-body
    * this is the JQuery selector of the element that your header should be bound to.  Once that element leave the page complely, your header will disapear
-* top-of-page
+* scroll-stop
    * this is how many pixels from the top of the page your elment will stop scrolling at, just in case you have a header on the top of your page.
+* scrollable-element
+   * If you are in a scrollable element such as a div, and not your windows that scrolls, you'll need to specify that element id here.
