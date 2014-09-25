@@ -28,15 +28,14 @@ angular.module('fsm', [])
                 });
                 clonedHeader.addClass('sticky-header');
 
-                calculateSize();
-
                 // Attach the new header beside the original one in the dom
                 header.after(clonedHeader);
+                determineVisibility();
             };
 
             function determineVisibility() {
                 var offset = scrollBody.offset();
-                var scrollStopTop = $(window).scrollTop() + scrollStop;
+                var scrollStopTop = scrollableElement.scrollTop() + scrollStop;
                 var shouldBeVisible = ((scrollStopTop > offset.top) && (scrollStopTop < offset.top + scrollBody.height()));
 
                 if (shouldBeVisible == isVisible) {
@@ -44,12 +43,12 @@ angular.module('fsm', [])
                 } else {
                     if (shouldBeVisible) {
                         clonedHeader.css({ "visibility": "visible" });
+                        calculateSize();
                     } else {
                         clonedHeader.css({ "visibility": "hidden" });
                     };
 
                     isVisible = shouldBeVisible;
-                    calculateSize();
                 }
             };
 
@@ -66,7 +65,8 @@ angular.module('fsm', [])
                 if (clonedHeader.is('tr')) {
                     var clonedColumns = clonedHeader.find('th');
                     header.find('th').each(function (index, column) {
-                        clonedColumns[index].width = column.offsetWidth;
+                        var clonedColumn = $(clonedColumns[index]);
+                        clonedColumn.css( 'width', column.offsetWidth + 'px');
                     });
                 }
             }
