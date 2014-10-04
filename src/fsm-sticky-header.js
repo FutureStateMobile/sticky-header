@@ -1,60 +1,47 @@
 angular.module('fsm', [])
-.directive('fsmStickyHeader', function () {
+.directive('fsmStickyHeader', function(){
     return {
         restrict: 'EA',
         replace: false,
-        scope: {
+        scope: { 
             scrollBody: '=',
             scrollStop: '=',
             scrollableElement: '='
         },
-        link: function (scope, element) {
-            var header = $(element);
+        link: function(scope, element, attributes, control){
+            var header = $(element, this);
             var clonedHeader = header.clone();
-            var scrollStop = scope.scrollStop || 0;
-            var isVisible = false;
-            var scrollBody = scope.scrollBody || 'body,html';
-            var scrollableElement = scope.scrollableElement || window;
 
-            scrollBody = $(scrollBody);
-            scrollableElement = $(scrollableElement);
+            var content = $(scope.scrollBody);
+            var scrollableElement = $(scope.scrollableElement) || $(window);
 
-            function initialize() {
-                clonedHeader.css({
+            header.before(clonedHeader);
+            clonedHeader.addClass('fsm-sticky-header');
+            clonedHeader.css({
                     top: scope.scrollStop,
+                    width: header.outerWidth(),
+                    left: header.offset().left,
                     position: 'fixed',
-                    'z-index': 10001,
+                    'z-index': 10000,
                     visibility: 'hidden'
                 });
-                clonedHeader.addClass('sticky-header');
+            calculateSize();
 
-                // Attach the new header beside the original one in the dom
-                header.after(clonedHeader);
-                determineVisibility();
-            };
+            function determineVisibility(){
+                var offset = content.offset();
+                var scrollTop = $(window).scrollTop() + scope.scrollStop;
 
-            function determineVisibility() {
-                var offset = scrollBody.offset();
-                var scrollStopTop = scrollableElement.scrollTop() + scrollStop;
-                var shouldBeVisible = ((scrollStopTop > offset.top) && (scrollStopTop < offset.top + scrollBody.height()));
-
-                if (shouldBeVisible == isVisible) {
-                    return;
+                if ((scrollTop > offset.top) && (scrollTop < offset.top + content.height())) {
+                    clonedHeader.css({ "visibility": "visible"});
+                    calculateSize();
                 } else {
-                    if (shouldBeVisible) {
-                        clonedHeader.css({ "visibility": "visible" });
-                        calculateSize();
-                    } else {
-                        clonedHeader.css({ "visibility": "hidden" });
-                    };
-
-                    isVisible = shouldBeVisible;
-                }
+                    clonedHeader.css( {"visibility": "hidden"} );      
+                };
             };
 
             function calculateSize() {
                 clonedHeader.css({
-                    width: header.width(),
+                    width: header.outerWidth(),
                     left: header.offset().left
                 });
 
@@ -69,13 +56,10 @@ angular.module('fsm', [])
                         clonedColumn.css( 'width', column.offsetWidth + 'px');
                     });
                 }
-            }
+            }            
 
-            scrollableElement.scroll(determineVisibility).trigger("scroll");
-
-            $(window).resize(calculateSize);
-
-            initialize();
+            $(window).scroll(determineVisibility).trigger( "scroll" );
+            $(window).resize(determineVisibility);
         }
-    };
+    }
 });
