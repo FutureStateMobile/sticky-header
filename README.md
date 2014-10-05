@@ -47,8 +47,8 @@ Options
 --------
 
 * scroll-body
-   * this is the JQuery selector of the element that your header should be bound to.  Once that element leave the page complely, your header will disapear
+   * this is the JQuery selector of the element that your header is bound to.  Sticky header will follow the position of that element and keep the header on top of that element as it scrolls off the page.
 * scroll-stop
    * this is how many pixels from the top of the page your elment will stop scrolling at, just in case you have a header on the top of your page.
 * scrollable-element
-   * If you are in a scrollable element such as a div, and not your windows that scrolls, you'll need to specify that element id here.
+   * If you have a scrollable element such as a div, rather than the web page body scrolling, you'll need to specify that element id here.
