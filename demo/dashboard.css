@@ -1,9 +1,25 @@
+/*
+************************************************************
+This is the CSS used by the Stick-Header angular directive.
+************************************************************
+*/
+.fsm-sticky-header {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
+  border-radius: 2px !important;
+}
+
+/*
+************************************************************
+This css give the main page behiour and style for the menu
+menu buttons, header etc.
+************************************************************
+*/
 body, html {
   height: 100%;
   font-family: verdana;
   padding: 0;
   margin: 0;
-  background-color: #d6d9d5;
+  background-color: #F9F9F9;
 }
 
 .fsm-dashboard {
@@ -36,8 +52,8 @@ body, html {
   top: 0px;
   width: 100%;
   height: 50px;
-  background-color: #0a2433;
-  color: #262626;
+  background-color: #C63D0F;
+  color: #FDF3E7;
   box-shadow: 0px 2px 4px 0 rgba(0,0,0,.15);
   text-align: center;
   z-index: 10002;
@@ -66,25 +82,23 @@ body, html {
   }
 }
 
-.fsm-sticky-header {
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
-  border-radius: 2px !important;
-}
-
 .fsm-header .fsm-logo {
-  background: #0a2433 no-repeat center center fixed;
+  background: #C63D0F no-repeat center center fixed;
+  font-size: 22px;
+  border: 1px dotted #FDF3E7;
+  display: block;
+  vertical-align: middle;
   position: fixed;
   height: 35px;
   width: 150px;
-  left: 45px;
-  top: 3px;
+  right: 7px;
+  top: 7px;
 }
 
 .fsm-menu {
-  /*display: none;*/
-  border-top: 0px solid #0a2433;
-  background-color: #ab3333;
-  color: #d6d9d5;
+  /*border-top: 1px solid #3B3738;*/
+  background-color: #3B3738;
+  color: #FDF3E7;
   box-shadow: 0px 0px 2px 2px rgba(0,0,0,.15);
   width: 250px;
   position: fixed;
@@ -106,7 +120,6 @@ body, html {
 
 @media (min-width: 768px) {
   .fsm-menu {
-    /*display: block;*/
     left: 0;
     transition-property: left;
     transition-duration: .4s;
@@ -126,10 +139,10 @@ body, html {
   top: 3px;
   width: 48px;
   height: 44px;
-  border: 1px 1px 1px 0 solid #f1f1f1;
+  /*border: 1px solid #f1f1f1;*/
   border-radius: 10px;
   color: #f1f1f1;
-  background: #ab3333;
+  background: #3B3738;
   cursor: pointer;
   transition-property: left;
   transition-duration: .4s;
@@ -187,6 +200,12 @@ body, html {
   padding: 20px;
 }
 
+/*
+************************************************************
+This stuff is not needed for the dashboard, but is just used
+for elements on the demo page like the table and stuff
+************************************************************
+*/
 .section {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
   background-color: #FFF;
@@ -208,7 +227,7 @@ th {
 }
 
 tr {
-  /*border-top: 1px solid #0a2433;*/
+  /*border-top: 1px solid #3B3738;*/
 }
 
 tr:nth-child(even) {
@@ -226,7 +245,7 @@ td {
 }
 
 .text-area > h2 {
-  /*border-top: 1px solid #0a2433;*/
+  /*border-top: 1px solid #3B3738;*/
   background: #f1f1f1;
   padding: 10px;
   font: 28px Verdana, Serif;
