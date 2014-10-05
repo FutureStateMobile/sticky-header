@@ -13,14 +13,11 @@ angular.module('fsm', [])
             var clonedHeader = header.clone();
 
             var content = $(scope.scrollBody);
-            var scrollableElement = $(scope.scrollableElement) || $(window);
+            var scrollableElement = $(scope.scrollableElement)[0] || $(window);
 
             header.before(clonedHeader);
             clonedHeader.addClass('fsm-sticky-header');
             clonedHeader.css({
-                    top: scope.scrollStop,
-                    width: header.outerWidth(),
-                    left: header.offset().left,
                     position: 'fixed',
                     'z-index': 10000,
                     visibility: 'hidden'
@@ -28,12 +25,19 @@ angular.module('fsm', [])
             calculateSize();
 
             function determineVisibility(){
-                var offset = content.offset();
-                var scrollTop = $(window).scrollTop() + scope.scrollStop;
+                var scrollTop = scrollableElement.scrollTop() + scope.scrollStop;
+                var contentTop = content.offset().top;
+                var contentBottom = contentTop + content.outerHeight(false);
 
-                if ((scrollTop > offset.top) && (scrollTop < offset.top + content.height())) {
+                if ( (scrollTop > contentTop) && (scrollTop < contentBottom) ) {
                     clonedHeader.css({ "visibility": "visible"});
-                    calculateSize();
+                    
+                    if ( scrollTop < contentBottom && scrollTop > contentBottom - clonedHeader.outerHeight(false) ){
+                        var top = contentBottom - scrollTop + scope.scrollStop - clonedHeader.outerHeight(false);
+                        clonedHeader.css('top', top + 'px');
+                    } else {
+                        calculateSize();
+                    }
                 } else {
                     clonedHeader.css( {"visibility": "hidden"} );      
                 };
@@ -41,6 +45,7 @@ angular.module('fsm', [])
 
             function calculateSize() {
                 clonedHeader.css({
+                    top: scope.scrollStop,
                     width: header.outerWidth(),
                     left: header.offset().left
                 });
@@ -58,8 +63,8 @@ angular.module('fsm', [])
                 }
             }            
 
-            $(window).scroll(determineVisibility).trigger( "scroll" );
-            $(window).resize(determineVisibility);
+            scrollableElement.scroll(determineVisibility).trigger( "scroll" );
+            scrollableElement.resize(determineVisibility);
         }
     }
 });

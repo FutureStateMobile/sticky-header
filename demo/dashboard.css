@@ -13,20 +13,20 @@ body, html {
   height: 100%;
   padding-left: 0;
   transition-property: padding-left;
-  transition-duration: .5s;
+  transition-duration: .4s;
 }
 
 @media (min-width: 768px) {
   .fsm-dashboard {
     padding-left: 250px;
     transition-property: padding-left;
-    transition-duration: .5s;
+    transition-duration: .4s;
   }
 
   .fsm-menu-toggle .fsm-dashboard {
     padding-left: 0;
     transition-property: padding-left;
-    transition-duration: .5s;
+    transition-duration: .4s;
   }
 }
 
@@ -43,31 +43,32 @@ body, html {
   z-index: 10002;
   overflow: none;
   transition-property: box-shadow;
-  transition-duration: .5s;
+  transition-duration: .4s;
 }
 
 .fsm-menu-toggle .fsm-header {
   box-shadow: 250px 2px 4px 0 rgba(0,0,0,.15);
   transition-property: box-shadow;
-  transition-duration: .5s;
+  transition-duration: .4s;
 }
 
 @media (min-width: 768px) {
   .fsm-header {
     box-shadow: 250px 2px 4px 0 rgba(0,0,0,.15);
     transition-property: box-shadow;
-    transition-duration: .5s;
+    transition-duration: .4s;
   }
 
   .fsm-menu-toggle .fsm-header {
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
     transition-property: box-shadow;
-    transition-duration: .5s;
+    transition-duration: .4s;
   }
 }
 
 .fsm-sticky-header {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
+  border-radius: 2px !important;
 }
 
 .fsm-header .fsm-logo {
@@ -94,13 +95,13 @@ body, html {
   overflow-y: auto;
   z-index: 10001;
   transition-property: left;
-  transition-duration: .5s;
+  transition-duration: .4s;
 }
 
 .fsm-menu-toggle .fsm-menu {
   left: 0;
   transition-property: left;
-  transition-duration: .5s;
+  transition-duration: .4s;
 }
 
 @media (min-width: 768px) {
@@ -108,13 +109,13 @@ body, html {
     /*display: block;*/
     left: 0;
     transition-property: left;
-    transition-duration: .5s;
+    transition-duration: .4s;
   }
 
   .fsm-menu-toggle .fsm-menu {
     left: -250px;
     transition-property: left;
-    transition-duration: .5s;
+    transition-duration: .4s;
   }
 
 }
@@ -123,7 +124,7 @@ body, html {
   position: fixed;
   left: 0px;
   top: 0px;
-  width: 40px;
+  width: 35px;
   height: 40px;
   color: #FFF;
   background: #000;
@@ -132,29 +133,29 @@ body, html {
 
 .fsm-menu-button i {
   position: fixed;
-  left: 7px;
+  left: -1px;
   top: 7px;
   transition-property: left;
-  transition-duration: .5s;
+  transition-duration: .4s;
 }
 
 .fsm-menu-toggle .fsm-menu-button i {
-  left: -7px;
+  left: -11px;
   transition-property: left;
-  transition-duration: .5s;
+  transition-duration: .4s;
 }
 
 @media (min-width: 768px) {
   .fsm-menu-button i {
-    left: -7px;
+    left: -11px;
     transition-property: left;
-    transition-duration: .5s;
+    transition-duration: .4s;
   }
 
   .fsm-menu-toggle .fsm-menu-button i {
-    left: 7px;
+    left: -1px;
     transition-property: left;
-    transition-duration: .5s;
+    transition-duration: .4s;
   }
 }
 
@@ -169,7 +170,6 @@ body, html {
 }
 
 table {
-  /*border-top: 1px solid #d8d8d8;*/
   width: 100%;
   border-collapse: collapse;
   box-shadow: 0px 2px 4px 0 rgba(0,0,0,.15);
