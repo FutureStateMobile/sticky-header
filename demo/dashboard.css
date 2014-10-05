@@ -3,11 +3,11 @@ body, html {
   font-family: verdana;
   padding: 0;
   margin: 0;
-  background-color: #e5e5e5;
+  background-color: #d6d9d5;
 }
 
 .fsm-dashboard {
-  padding-top: 40px;
+  padding-top: 50px;
   position: relative;
   width: 100%;
   height: 100%;
@@ -35,8 +35,8 @@ body, html {
   left: 0px;
   top: 0px;
   width: 100%;
-  height: 40px;
-  background-color: #FFF;
+  height: 50px;
+  background-color: #0a2433;
   color: #262626;
   box-shadow: 0px 2px 4px 0 rgba(0,0,0,.15);
   text-align: center;
@@ -47,14 +47,14 @@ body, html {
 }
 
 .fsm-menu-toggle .fsm-header {
-  box-shadow: 250px 2px 4px 0 rgba(0,0,0,.15);
+  box-shadow: 0px 2px 4px 0 rgba(0,0,0,.15);
   transition-property: box-shadow;
   transition-duration: .4s;
 }
 
 @media (min-width: 768px) {
   .fsm-header {
-    box-shadow: 250px 2px 4px 0 rgba(0,0,0,.15);
+    box-shadow: 0px 2px 4px 0 rgba(0,0,0,.15);
     transition-property: box-shadow;
     transition-duration: .4s;
   }
@@ -72,7 +72,7 @@ body, html {
 }
 
 .fsm-header .fsm-logo {
-  background: #FFF no-repeat center center fixed;
+  background: #0a2433 no-repeat center center fixed;
   position: fixed;
   height: 35px;
   width: 150px;
@@ -82,18 +82,18 @@ body, html {
 
 .fsm-menu {
   /*display: none;*/
-  border-top: 1px solid #d8d8d8;
-  background-color: #FFF;
-  color: #262626;
+  border-top: 0px solid #0a2433;
+  background-color: #ab3333;
+  color: #d6d9d5;
   box-shadow: 0px 0px 2px 2px rgba(0,0,0,.15);
   width: 250px;
   position: fixed;
-  top: 40px;
-  left: -250px;
+  top: 0px;
+  left: -252px;
   bottom: 0px;
   overflow-x: none;
   overflow-y: auto;
-  z-index: 10001;
+  z-index: 10003;
   transition-property: left;
   transition-duration: .4s;
 }
@@ -113,7 +113,7 @@ body, html {
   }
 
   .fsm-menu-toggle .fsm-menu {
-    left: -250px;
+    left: -252px;
     transition-property: left;
     transition-duration: .4s;
   }
@@ -122,32 +122,56 @@ body, html {
 
 .fsm-menu-button {
   position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 35px;
-  height: 40px;
-  color: #FFF;
-  background: #000;
+  left: -10px;
+  top: 3px;
+  width: 48px;
+  height: 44px;
+  border: 1px 1px 1px 0 solid #f1f1f1;
+  border-radius: 10px;
+  color: #f1f1f1;
+  background: #ab3333;
   cursor: pointer;
+  transition-property: left;
+  transition-duration: .4s;
 }
 
 .fsm-menu-button i {
   position: fixed;
   left: -1px;
-  top: 7px;
+  top: 11px;
+  transition-property: left;
+  transition-duration: .4s;
+}
+
+.fsm-menu-toggle .fsm-menu-button {
+  left: 240px;
   transition-property: left;
   transition-duration: .4s;
 }
 
 .fsm-menu-toggle .fsm-menu-button i {
-  left: -11px;
+  left: 249px;
   transition-property: left;
   transition-duration: .4s;
 }
 
 @media (min-width: 768px) {
+  .fsm-menu-button {
+    left: 240px;
+    transition-property: left;
+    transition-duration: .4s;
+  }
+
+  .fsm-menu-toggle .fsm-menu-button {
+    left: -10px;
+    transition-property: left;
+    transition-duration: .4s;
+  }
+}
+
+@media (min-width: 768px) {
   .fsm-menu-button i {
-    left: -11px;
+    left: 249px;
     transition-property: left;
     transition-duration: .4s;
   }
@@ -178,17 +202,17 @@ table {
 }
 
 th { 
-  background-color: #eee; 
+  background-color: #f1f1f1; 
   padding: 10px; 
   text-align: left;
 }
 
 tr {
-  border-top: 1px solid #d8d8d8;
+  /*border-top: 1px solid #0a2433;*/
 }
 
-tr:nth-child(odd) {
-  background: #eee;
+tr:nth-child(even) {
+  background: #f1f1f1;
 }
 
 td { 
@@ -202,8 +226,8 @@ td {
 }
 
 .text-area > h2 {
-  border-top: 1px solid #d8d8d8;
-  background: #F1F1F1;
+  /*border-top: 1px solid #0a2433;*/
+  background: #f1f1f1;
   padding: 10px;
   font: 28px Verdana, Serif;
   margin: 0 0 20px 0;
