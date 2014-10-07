@@ -8,22 +8,20 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.2/angular.min.js"></script>
 		<script src="../src/fsm-sticky-header.js"></script>
+		<script src="../src/fsm-menu-button.js"></script>
 		<script>
 			angular.module('testApp', ['fsm'])
 				.controller('testController', ['$scope', function($scope) {
 			}]);
-
-			function toggleMenu(){
-				$('body').toggleClass('fsm-menu-toggle');
-			}
 		</script>
 	</head>
 	<body >
 		<div class="fsm-dashboard">
 			<div class="fsm-header" >
 				<div class="fsm-logo" >Logo Here</div>
-				<div class="fsm-menu-button" on-click="toggleMenu()" >
-					<i class="fa fa-bars fa-2x"></i>
+				<div fsm-menu-button >
+					<i class="fa fa-bars fa-2x fsm-menu-button-open"></i>
+					<i class="fa fa-arrow-left fa-2x fsm-menu-button-closed"></i>
 				</div>
 			</div>
 			<div class="fsm-menu">
