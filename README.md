@@ -3,9 +3,9 @@ sticky-headers
 
 An AngularJS directive for making headers that won't scroll past the top of the screen.
 
-<img src='https://cloud.githubusercontent.com/assets/353374/4347573/9297aa8e-415c-11e4-9bd5-7706c0e21716.png'/>
-
 [Demo Page](http://rawgit.com/FutureStateMobile/sticky-header/master/demo/index.html)
+
+<img src='https://cloud.githubusercontent.com/assets/353374/4542679/68567294-4e24-11e4-8c4d-4f0e3227743f.png' />
 
 How to use it
 -------------
