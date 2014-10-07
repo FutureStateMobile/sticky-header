@@ -1,5 +1,6 @@
-angular.module('fsm', [])
-.directive('fsmStickyHeader', function(){
+var fsm = angular.module('fsm', []);
+
+fsm.directive('fsmStickyHeader', function(){
     return {
         restrict: 'EA',
         replace: false,
@@ -65,6 +66,31 @@ angular.module('fsm', [])
 
             scrollableElement.scroll(determineVisibility).trigger( "scroll" );
             scrollableElement.resize(determineVisibility);
+        }
+    }
+});
+
+fsm.directive('fsmMenuButton', function(){
+    return {
+        restrict: 'EA',
+        replace: false,
+        scope: { },
+        link: function(scope, element, attributes, control){
+            var menuButton = $(element, this);
+
+            menuButton.addClass('fsm-menu-button');
+            menuButton.click( menuOnClick );
+
+            function menuOnClick() {
+                setMenuSpin();
+                setTimeout(setMenuSpin, 50);
+                $('body').toggleClass('fsm-menu-toggle');
+            };
+
+            function setMenuSpin(){
+                menuButton.find('.fsm-menu-button-open').toggleClass('fsm-spin-forward');
+                menuButton.find('.fsm-menu-button-closed').toggleClass('fsm-spin-backward');
+            };
         }
     }
 });
