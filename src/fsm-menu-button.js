@@ -12,7 +12,7 @@ angular.module('fsm', [])
 
             function menuOnClick() {
                 setMenuSpin();
-                setTimeout(setMenuSpin, 10);
+                setTimeout(setMenuSpin, 50);
                 $('body').toggleClass('fsm-menu-toggle');
             }
 
