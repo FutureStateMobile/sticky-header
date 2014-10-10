@@ -11,38 +11,22 @@ fsm.directive('fsmStickyHeader', function(){
         },
         link: function(scope, element, attributes, control){
             var header = $(element, this);
-            var clonedHeader = header.clone();
-
             var content = $(scope.scrollBody);
             var scrollableContainer = $(scope.scrollableContainer)[0] || $(window);
+            var clonedHeader = null;
 
-            header.before(clonedHeader);
-            clonedHeader.addClass('fsm-sticky-header');
-            clonedHeader.css({
-                    position: 'fixed',
-                    'z-index': 10000,
-                    visibility: 'hidden'
-                });
-            calculateSize();
+            function createClone(){
+                clonedHeader = header.clone();
 
-            function determineVisibility(){
-                var scrollTop = scrollableContainer.scrollTop() + scope.scrollStop;
-                var contentTop = content.offset().top;
-                var contentBottom = contentTop + content.outerHeight(false);
-
-                if ( (scrollTop > contentTop) && (scrollTop < contentBottom) ) {
-                    clonedHeader.css({ "visibility": "visible"});
-                    
-                    if ( scrollTop < contentBottom && scrollTop > contentBottom - clonedHeader.outerHeight(false) ){
-                        var top = contentBottom - scrollTop + scope.scrollStop - clonedHeader.outerHeight(false);
-                        clonedHeader.css('top', top + 'px');
-                    } else {
-                        calculateSize();
-                    }
-                } else {
-                    clonedHeader.css( {"visibility": "hidden"} );      
-                };
-            };
+                header.before(clonedHeader);
+                clonedHeader.addClass('fsm-sticky-header');
+                clonedHeader.css({
+                        position: 'fixed',
+                        'z-index': 10000,
+                        visibility: 'hidden'
+                    });
+                calculateSize();
+            }
 
             function calculateSize() {
                 clonedHeader.css({
@@ -64,6 +48,31 @@ fsm.directive('fsmStickyHeader', function(){
                 }
             }            
 
+            function determineVisibility(){
+                var scrollTop = scrollableContainer.scrollTop() + scope.scrollStop;
+                var contentTop = content.offset().top;
+                var contentBottom = contentTop + content.outerHeight(false);
+
+                if ( (scrollTop > contentTop) && (scrollTop < contentBottom) ) {
+                    if (!clonedHeader){
+                        createClone();    
+                        clonedHeader.css({ "visibility": "visible"});
+                    }
+                    
+                    if ( scrollTop < contentBottom && scrollTop > contentBottom - clonedHeader.outerHeight(false) ){
+                        var top = contentBottom - scrollTop + scope.scrollStop - clonedHeader.outerHeight(false);
+                        clonedHeader.css('top', top + 'px');
+                    } else {
+                        calculateSize();
+                    }
+                } else {
+                    if (clonedHeader){
+                        clonedHeader.remove();
+                        clonedHeader = null;
+                    }
+                };
+            };
+
             scrollableContainer.scroll(determineVisibility).trigger( "scroll" );
             scrollableContainer.resize(determineVisibility);
         }
@@ -82,9 +91,9 @@ fsm.directive('fsmMenuButton', function(){
             menuButton.click( menuOnClick );
 
             function menuOnClick() {
+                $('body').toggleClass('fsm-menu-toggle');
                 setMenuSpin();
                 setTimeout(setMenuSpin, 50);
-                $('body').toggleClass('fsm-menu-toggle');
             };
 
             function setMenuSpin(){
@@ -95,59 +104,7 @@ fsm.directive('fsmMenuButton', function(){
     }
 });
 
-// fsm.directive('fsmDataTable', function () {
-//     return {
-//         restrict: 'A',
-//         replace: false,
-//         transclude: false,
-//         scope: false,
-//         compile: function (tElement, tAttrs, transclude) {
-//             var currentPage = 0;
-//             var pagedDataName = tAttrs.fsmDataTable.split(' by ')[0];
-//             var rightHandExpression = tAttrs.fsmDataTable.split(' by ')[1];
-//             var pageSize = parseInt(rightHandExpression.split(' of ')[0]);
-//             var sourceData = rightHandExpression.split(' of ')[1];
-           
-//             var rawData = [];
-//             var pagedData = [];
-//             var page = $(window);
-
-//             return function (scope, element, attrs) {
-//                 scope[pagedDataName] = pagedData;
-
-//                 function nextPage() {
-//                     var dataSlice = rawData.slice(pageSize * currentPage, (pageSize * (currentPage + 1)));
-//                     if (dataSlice.length > 0) {
-//                         pagedData.push.apply(pagedData, dataSlice);
-//                         currentPage++;
-//                     }
-//                 }
-
-//                 function shouldGetNextPage() {
-//                     var s = $(window).scrollTop(),
-//                     d = $(document).height(),
-//                     c = $(window).height();
-//                     scrollPercent = (s / (d-c));
-
-//                     if (scrollPercent > 0.98) {
-//                         scope.$apply(nextPage);
-//                     }
-//                 }
-
-//                 page.scroll(shouldGetNextPage).trigger( 'scroll' );
-
-//                 scope.$watch(sourceData, function (newData) {
-//                     rawData = newData;
-//                     pagedData.length = 0;
-//                     currentPage = 0;
-//                     nextPage();
-//                 });
-//             };
-//         }
-//     };
-// });
-
-fsm.directive('fsmDataTable', function ($filter) {
+fsm.directive('fsmBigData', function ($filter) {
 
     return {
         restrict: 'AE',
@@ -157,13 +114,16 @@ fsm.directive('fsmDataTable', function ($filter) {
         link: function (scope, element, attrs, controller, transclude) {
             var orderBy = $filter('orderBy');
             var currentPage = 0;
-            var pagedDataName = attrs.fsmDataTable.split(' take ')[0];
-            var rightHandExpression = attrs.fsmDataTable.split(' take ')[1];
-            var pageSize = parseInt(rightHandExpression.split(' of ')[0]);
-            var sourceData = rightHandExpression.split(' of ')[1];
+            var pagedDataName = attrs.fsmBigData.split(' of ')[0];
+            var rightHandExpression = attrs.fsmBigData.split(' of ')[1];
+            var pageSize = parseInt(rightHandExpression.split(' take ')[1]);
+            var sourceData = rightHandExpression.split(' take ')[0];
             
+            // Interesting things can be done here with the source object...
             // var displayGetter = $parse(sourceData);
             // var displaySetter = displayGetter.assign;
+            // var results = orderBy(displayGetter(scope.$parent), sortColumns);
+            // displaySetter(scope.$parent, results)
 
             var rawData = [];
             var sortedData = [];
@@ -186,26 +146,14 @@ fsm.directive('fsmDataTable', function ($filter) {
                     }
                 }
 
-                function checkToGetNextPage() {
-                    var s = $(window).scrollTop(),
-                    d = $(document).height(),   
-                    c = $(window).height();
-                    scrollPercent = (s / (d-c));
-
-                    if (scrollPercent > 0.98) {
-                        nextPage();
-                    }
-                }
-
                 function addSortColumn(columnName, sortType) {
                     // If this column is currently in the sort stack, remove it.
                     sortColumns = _.reject(sortColumns, function(item){
                         return item.indexOf(columnName) > -1;
                     });
 
-                    // Push this sort on the top of the stack
+                    // Push this sort on the top of the stack (aka. array)
                     if (sortType > 0) {
-                        
                         var direction = '';
                         if (sortTypes[sortType] === 'Descending'){
                             direction = '-'
@@ -213,12 +161,7 @@ fsm.directive('fsmDataTable', function ($filter) {
                         sortColumns.unshift(direction + columnName);
                     }
 
-                    // if (sortColumns.length > 0){
-                    //     var results = orderBy(displayGetter(scope.$parent), sortColumns);
-                    //     displaySetter(scope.$parent, results)
-                    // }
                     renderData();
-
                 }
 
                 function renderData() {
@@ -234,9 +177,21 @@ fsm.directive('fsmDataTable', function ($filter) {
                     nextPage();
                 }
 
-                page.scroll(function() {
-                    transcludedScope.$apply(checkToGetNextPage);
-                }).trigger( 'scroll' );
+                function onPageScroll() {
+                    var s = $(window).scrollTop(),
+                    d = $(document).height(),   
+                    c = $(window).height();
+                    scrollPercent = (s / (d-c));
+
+                    if (scrollPercent > 0.98) {
+                        // We use scope.apply here to tell angular about these changes because 
+                        // they happen outside of angularjs context... we're using jquery here
+                        // to figure out when we need to load another page of data.
+                        transcludedScope.$apply(nextPage);
+                    }
+                }
+
+                page.scroll(onPageScroll).trigger( 'scroll' );
 
                 scope.$parent.$watchCollection(sourceData, function (newData) {
                     if (newData){
@@ -252,30 +207,19 @@ fsm.directive('fsmDataTable', function ($filter) {
 });
 
 fsm.directive('fsmSort', function () {
-    var sortTemplate = '<i class="fa fa-sort"></i>';
+    var sortIconTemplate = '<i class="fa fa-sort"></i>';
 
     return {
         restrict: 'AE',
         replace: false,
         scope: {},
         link: function (scope, element, attrs) {
-            var columnHeader = $(element, this);
+            var columnHeader = element;
             var columnName = attrs.fsmSort;
-            var sortIcon = angular.element(sortTemplate);
+            var sortIcon = angular.element(sortIconTemplate);
             columnHeader.append('&nbsp;')
             columnHeader.append(sortIcon);
             var currentSortType = 0;
-
-            function clickSort(){
-                // Find the kind of sort this should now be
-                currentSortType ++;
-                if (currentSortType == scope.$parent.sortTypes.length ){
-                    currentSortType = 0;
-                }
-
-                scope.$parent.addSortColumn(columnName, currentSortType);
-                swapIcons();
-            };
 
             function swapIcons(){
                 sortIcon.removeClass('fa-sort-desc fa-sort-asc fa-sort');
@@ -293,8 +237,16 @@ fsm.directive('fsmSort', function () {
 
             columnHeader.css({ cursor: 'pointer' });
 
-            columnHeader.click( function() { 
-                scope.$apply(clickSort);
+            columnHeader.bind('click', function() {
+                // Find the kind of sort this should now be
+                currentSortType ++;
+                if (currentSortType == scope.$parent.sortTypes.length ){
+                    currentSortType = 0;
+                }
+
+                scope.$apply( scope.$parent.addSortColumn(columnName, currentSortType) );
+
+                swapIcons();
             });
         }
     }

@@ -25,7 +25,38 @@
 						});
 					};
 					$scope.test.data = data;
-			}]);
+				}]
+			);
+
+			var lastIndex = 0;
+			var startIndex = 1;
+
+			$(document).keydown(function(e) {
+			    if (e.keyCode == 9) var thisTab = $(":focus").attr("tabindex");
+			    if (e.keyCode == 9) {
+			        if (e.shiftKey) {
+			            //Focus previous input
+			            if (thisTab == startIndex) {
+			                $("." + tabLimitInID).find('[tabindex=' + lastIndex + ']').focus();
+			                return false;
+			            }
+			        } else {
+			            if (thisTab == lastIndex) {
+			                $("." + tabLimitInID).find('[tabindex=' + startIndex + ']').focus();
+			                return false;
+			            }
+			        }
+			    }
+			});
+
+			// var setTabindexLimit = function(x, fancyID) {
+			//     console.log(x);
+			//     startIndex = 1;
+			//     lastIndex = x;
+			//     tabLimitInID = fancyID;
+			//     $("." + tabLimitInID).find('[tabindex=' + startIndex + ']').focus();
+			// }
+
 		</script>
 	</head>
 	<body >
@@ -91,21 +122,21 @@
 					</div>
 				</div>
 
-				<table id="testtable" fsm-data-table="dataPage take 50 of test.data">
+				<table id="testtable" fsm-big-data="dataPage of test.data take 50">
 			        <thead>
 			        	<tr fsm-sticky-header scroll-body="'#testtable'" scroll-stop="50">
-			            	<th data-fsm-sort="id">Number</th>
-			            	<th data-fsm-sort="column1">Column One</th>
-			            	<th data-fsm-sort="column2">Column Two</th>
+			            	<th fsm-sort="id">Number</th>
+			            	<th fsm-sort="column1">Column One</th>
+			            	<th fsm-sort="column2">Column Two</th>
 							<th >Column Three</th>		             
 			        	</tr>
 			        </thead>
 			        <tbody>
 			          <tr ng-repeat="item in dataPage">
-			             <td>{{item.id}}</td>
-			             <td>{{item.column1}}</td>
-			             <td>{{item.column2}}</td>
-			             <td>{{item.longText}}.</td>
+			             <td tabindex='{{($index + 1) * 4 - 3}}'>{{item.id}}</td>
+			             <td tabindex='{{($index + 1) * 4 - 2}}'>{{item.column1}}</td>
+			             <td tabindex='{{($index + 1) * 4 - 1}}'>{{item.column2}}</td>
+			             <td tabindex='{{($index + 1) * 4}}'>{{item.longText}}.</td>
 			          </tr>
 					</tbody>
 				</table>
