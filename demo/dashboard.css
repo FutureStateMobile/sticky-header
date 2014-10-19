@@ -128,9 +128,8 @@ body, html {
   }
 
   .fsm-menu-toggle .fsm-menu {
-    left: -260px;
+    left: -254px;
   }
-
 }
 
 /*
@@ -140,6 +139,8 @@ body, html {
 */
 .fsm-menu-button {
   position: fixed;
+  padding: 0;
+  border: 0;
   left: 0px;
   top: 0px;
   width: 50px;
@@ -147,6 +148,16 @@ body, html {
   color: #FFF;
   background: #000;
   cursor: pointer;
+}
+
+.fsm-menu-button i {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  left: -1px;
+  top: 11px;
+  transition-property: all;
+  transition-duration: .4s;
 }
 
 .fsm-menu-button-open {
@@ -163,14 +174,6 @@ body, html {
 
 .fsm-menu-toggle .fsm-menu-button-closed {
   display: block;
-}
-
-.fsm-menu-button i {
-  position: fixed;
-  left: 12px;
-  top: 12px;
-  transition-property: all;
-  transition-duration: .4s;
 }
 
 @media (min-width: 768px) {
@@ -230,6 +233,7 @@ for elements on the demo page like the table and stuff
 }
 
 table {
+  border: 1px solid #d8d8d8;
   width: 100%;
   border-collapse: collapse;
   box-shadow: 0px 2px 4px 0 rgba(0,0,0,.15);
@@ -239,7 +243,7 @@ table {
 
 th { 
   background-color: #eee; 
-  padding: 10px; 
+  padding: 10px;
   text-align: left;
 }
 
@@ -256,13 +260,13 @@ td {
 }
 
 .text-area {
+  border: 1px solid #d8d8d8;
   margin-bottom: 20px;
   line-height: 1.5;
   border-radius: 2px;
 }
 
 .text-area > h2 {
-  border-top: 1px solid #d8d8d8;
   background: #F1F1F1;
   padding: 10px;
   font: 28px Verdana, Serif;

@@ -5,7 +5,7 @@ menu buttons, header etc.
 ************************************************************
 */
 body, html {
-  background-color: #F9F9F9;
+  background-color: #D6D9D5;
 }
 
 /*
@@ -14,8 +14,8 @@ body, html {
 ************************************************************
 */
 .fsm-header {
-  background-color: #C63D0F;
-  color: #FDF3E7;
+  background-color: #0A2433;
+  color: #f1f1f1;
   z-index: 10001;
 }
 
@@ -34,8 +34,9 @@ body, html {
 }
 
 .fsm-header .fsm-logo {
-  background: #C63D0F no-repeat center center fixed;
-  border: 1px dotted #FDF3E7;
+  background: #0A2433 no-repeat center center fixed;
+  border: 1px dotted #f1f1f1;
+  color: #f1f1f1;
   position: fixed;
   right: 7px;
   left: auto;
@@ -47,10 +48,10 @@ body, html {
 ************************************************************
 */
 .fsm-menu {
-  border-top: 0;
+  border-top: 0px solid #0a2433;
   top: 0px;
-  background-color: #3B3738;
-  color: #FDF3E7;
+  color: #f1f1f1;
+  background-color: #ab3333;
   z-index: 10002;
 }
 /*
@@ -66,8 +67,7 @@ body, html {
   height: 44px;
   border-radius: 10px;
   color: #f1f1f1;
-  background: #3B3738;
-  z-index: 10002;
+  background: #ab3333;
   transition-property: left;
   transition-duration: .4s;
 }
