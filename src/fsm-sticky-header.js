@@ -147,11 +147,14 @@ fsm.directive('fsmBigData', function ($filter) {
                 }
 
                 function addSortColumn(columnName, sortType) {
+                    
                     // If this column is currently in the sort stack, remove it.
-                    sortColumns = _.reject(sortColumns, function(item){
-                        return item.indexOf(columnName) > -1;
-                    });
-
+                    for (var i = 0; i < sortColumns.length; i ++){
+                        if (sortColumns[i].indexOf(columnName) > -1) {
+                            sortColumns.splice(i, 1);
+                        }
+                    }
+                    
                     // Push this sort on the top of the stack (aka. array)
                     if (sortType > 0) {
                         var direction = '';
