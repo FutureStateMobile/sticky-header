@@ -14,6 +14,10 @@ This css give the main page behiour and style for the menu
 menu buttons, header etc.
 ************************************************************
 */
+
+/* Dial down the suck just a little bit in Internet Explorer */
+@-ms-viewport{ width: auto !important; }
+
 body, html {
   height: 100%;
   font-family: verdana;
