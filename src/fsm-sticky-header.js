@@ -16,9 +16,13 @@ fsm.directive('fsmStickyHeader', function(){
             var clonedHeader = null;
 
             function createClone(){
-                clonedHeader = header.clone();
+                /*
+                 * switch place with cloned element, to keep binding intact
+                 */
+                clonedHeader = header;
+                header = clonedHeader.clone();
 
-                header.before(clonedHeader);
+                clonedHeader.after(header);
                 clonedHeader.addClass('fsm-sticky-header');
                 clonedHeader.css({
                         position: 'fixed',
@@ -67,8 +71,20 @@ fsm.directive('fsmStickyHeader', function(){
                     }
                 } else {
                     if (clonedHeader){
-                        clonedHeader.remove();
+                        /*
+                         * remove cloned element (switched places with original on creation)
+                         */
+                        header.remove();
+                        header = clonedHeader;
                         clonedHeader = null;
+
+                        header.removeClass('fsm-sticky-header');
+                        header.css({
+                            position: 'relative',
+                            width: 'auto',
+                            'z-index': 0,
+                            visibility: 'visible'
+                        });
                     }
                 };
             };
