@@ -81,6 +81,7 @@ fsm.directive('fsmStickyHeader', function(){
                         header.removeClass('fsm-sticky-header');
                         header.css({
                             position: 'relative',
+                            width: 'auto',
                             'z-index': 0,
                             visibility: 'visible'
                         });
