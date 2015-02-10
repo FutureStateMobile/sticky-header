@@ -21,14 +21,13 @@ fsm.directive('fsmStickyHeader', function(){
                  */
                 clonedHeader = header;
                 header = clonedHeader.clone();
-
                 clonedHeader.after(header);
                 clonedHeader.addClass('fsm-sticky-header');
                 clonedHeader.css({
-                        position: 'fixed',
-                        'z-index': 10000,
-                        visibility: 'hidden'
-                    });
+                    position: 'fixed',
+                    'z-index': 10000,
+                    visibility: 'hidden'
+                });                
                 calculateSize();
             }
 
@@ -81,6 +80,8 @@ fsm.directive('fsmStickyHeader', function(){
                         header.removeClass('fsm-sticky-header');
                         header.css({
                             position: 'relative',
+                            left: 0,
+                            top: 0,
                             width: 'auto',
                             'z-index': 0,
                             visibility: 'visible'
