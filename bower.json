@@ -1,0 +1,15 @@
+{
+	"name": "fsm-sticky-header",
+	"version": "1.0",
+	"main": [
+		"src/fsm-sticky-header.js"
+	],
+	"dependencies": {
+		"angular": "~1.3.0"
+	},
+	"ignore": [
+		"demo",
+		"LICENSE",
+		"README.md"
+	]
+}
