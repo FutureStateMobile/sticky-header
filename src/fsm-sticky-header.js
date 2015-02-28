@@ -53,7 +53,7 @@ fsm.directive('fsmStickyHeader', function(){
 
             function determineVisibility(){
                 var scrollTop = scrollableContainer.scrollTop() + scope.scrollStop;
-                var contentTop = content.offset().top;
+                var contentTop = content.position().top;
                 var contentBottom = contentTop + content.outerHeight(false);
 
                 if ( (scrollTop > contentTop) && (scrollTop < contentBottom) ) {
