@@ -11,9 +11,13 @@ fsm.directive('fsmStickyHeader', function(){
         },
         link: function(scope, element, attributes, control){
             var header = $(element, this);
-            var content = $(scope.scrollBody);
-            var scrollableContainer = $(scope.scrollableContainer) || $(window);
             var clonedHeader = null;
+            var content = $(scope.scrollBody);
+            var scrollableContainer = $(scope.scrollableContainer);
+
+            if (scrollableContainer.length == 0){
+                scrollableContainer = $(window);
+            }
 
             function createClone(){
                 /*
