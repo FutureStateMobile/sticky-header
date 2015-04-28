@@ -20,8 +20,7 @@
                 if (scrollableContainer.length === 0){
                     scrollableContainer = $(window);
                 }
-    
-    
+
                 function setColumnHeaderSizes() {
                     if (clonedHeader.is('tr')) {
                         var clonedColumns = clonedHeader.find('th');
@@ -30,39 +29,13 @@
                             clonedColumn.css( 'width', column.offsetWidth + 'px');
                         });
                     }
-                } 
-    
-                function calculateSize() {
-                    clonedHeader.css({
-                        top: scope.scrollStop,
-                        width: header.outerWidth(),
-                        left: header.offset().left
-                    });
-    
-                    setColumnHeaderSizes();
-                }
-                
-                function createClone(){
-                    /*
-                     * switch place with cloned element, to keep binding intact
-                     */
-                    clonedHeader = header;
-                    header = clonedHeader.clone();
-                    clonedHeader.after(header);
-                    clonedHeader.addClass('fsm-sticky-header');
-                    clonedHeader.css({
-                        position: 'fixed',
-                        'z-index': 10000,
-                        visibility: 'hidden'
-                    });                
-                    calculateSize();
-                }           
-    
+                };
+
                 function determineVisibility(){
                     var scrollTop = scrollableContainer.scrollTop() + scope.scrollStop;
-                    var contentTop = content.position().top;
+                    var contentTop = content.offset().top;
                     var contentBottom = contentTop + content.outerHeight(false);
-    
+
                     if ( (scrollTop > contentTop) && (scrollTop < contentBottom) ) {
                         if (!clonedHeader){
                             createClone();    
@@ -83,7 +56,7 @@
                             header.remove();
                             header = clonedHeader;
                             clonedHeader = null;
-    
+
                             header.removeClass('fsm-sticky-header');
                             header.css({
                                 position: 'relative',
@@ -95,8 +68,34 @@
                             });
                         }
                     }
-                }
+                };
+        
+                function calculateSize() {
+                    clonedHeader.css({
+                        top: scope.scrollStop,
+                        width: header.outerWidth(),
+                        left: header.offset().left
+                    });
     
+                    setColumnHeaderSizes();
+                };
+                
+                function createClone(){
+                    /*
+                     * switch place with cloned element, to keep binding intact
+                     */
+                    clonedHeader = header;
+                    header = clonedHeader.clone();
+                    clonedHeader.after(header);
+                    clonedHeader.addClass('fsm-sticky-header');
+                    clonedHeader.css({
+                        position: 'fixed',
+                        'z-index': 10000,
+                        visibility: 'hidden'
+                    });                
+                    calculateSize();
+                };          
+        
                 scrollableContainer.scroll(determineVisibility).trigger( "scroll" );
                 scrollableContainer.resize(determineVisibility);
             }
@@ -261,11 +260,9 @@
                     }
     
                     sortIcon.addClass(classToAdd);
-                }
-    
-                columnHeader.css({ cursor: 'pointer' });
-    
-                columnHeader.bind('click', function() {
+                };
+
+                function applySort() {
                     // Find the kind of sort this should now be
                     currentSortType ++;
                     if (currentSortType == scope.$parent.sortTypes.length ){
@@ -275,6 +272,18 @@
                     scope.$apply( scope.$parent.addSortColumn(columnName, currentSortType) );
     
                     swapIcons();
+                };
+    
+                columnHeader.css({ cursor: 'pointer' });
+    
+                columnHeader.bind('click', applySort);
+
+                columnHeader.bind('keydown', function(e){
+                    if (e.keyCode === 13 ) {
+                        applySort();
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
                 });
             }
         };
