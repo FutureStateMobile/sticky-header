@@ -96,8 +96,12 @@
                     calculateSize();
                 };          
         
-                scrollableContainer.scroll(determineVisibility).trigger( "scroll" );
-                scrollableContainer.resize(determineVisibility);
+                scrollableContainer.on('scroll.fsmStickyHeader', determineVisibility).trigger("scroll");
+                scrollableContainer.on('resize.fsmStickyHeader', determineVisibility);
+
+                scope.$on('$destroy', function() {
+                    scrollableContainer.off('.fsmStickyHeader');
+                });
             }
         };
     }]);
@@ -122,7 +126,11 @@
                 }
                 
                 menuButton.addClass('fsm-menu-button');
-                menuButton.click( menuOnClick );
+                menuButton.on('click.fsmMenuButton', menuOnClick);
+
+                scope.$on('$destroy', function() {
+                    menuButton.off('.fsmSort');
+                });
     
             }
         };
@@ -218,7 +226,7 @@
                         }
                     }
     
-                    page.scroll(onPageScroll).trigger( 'scroll' );
+                    page.on('scroll.fsmBigData', onPageScroll).trigger('scroll');
     
                     scope.$parent.$watchCollection(sourceData, function (newData) {
                         if (newData){
@@ -228,6 +236,10 @@
                     });
     
                     scope.addSortColumn = addSortColumn;
+
+                    scope.$on('$destroy', function() {
+                        page.off('.fsmBigData');
+                    });
                 });
             }
         };
@@ -276,14 +288,18 @@
     
                 columnHeader.css({ cursor: 'pointer' });
     
-                columnHeader.bind('click', applySort);
+                columnHeader.on('click.fsmSort', applySort);
 
-                columnHeader.bind('keydown', function(e){
-                    if (e.keyCode === 13 ) {
+                columnHeader.on('keydown.fsmSort', function(e) {
+                    if (e.keyCode === 13) {
                         applySort();
                         e.preventDefault();
                         e.stopPropagation();
                     }
+                });
+
+                scope.$on('$destroy', function() {
+                    columnHeader.off('.fsmSort');
                 });
             }
         };
