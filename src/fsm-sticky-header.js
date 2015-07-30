@@ -1,5 +1,6 @@
-(function(angular){ 'use strict';
+'use strict';
 
+(function(angular){
     var fsm = angular.module('fsm', []);
     
     fsm.directive('fsmStickyHeader', [function(){
@@ -304,5 +305,4 @@
             }
         };
     }]);
-
 })(window.angular);
