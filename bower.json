@@ -1,6 +1,6 @@
 {
-	"name": "fsm-sticky-header",
-	"version": "1.0",
+	"name": "sticky-header",
+	"version": "0.0.1",
 	"main": [
 		"src/fsm-sticky-header.js"
 	],
