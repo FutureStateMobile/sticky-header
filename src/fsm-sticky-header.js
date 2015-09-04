@@ -10,13 +10,15 @@
             scope: { 
                 scrollBody: '=',
                 scrollStop: '=',
-                scrollableContainer: '='
+                scrollableContainer: '=',
+                contentOffset: '='
             },
             link: function(scope, element, attributes, control){
                 var header = $(element, this);
                 var clonedHeader = null;
                 var content = $(scope.scrollBody);
                 var scrollableContainer = $(scope.scrollableContainer);
+                var contentOffset = scope.contentOffset || 0;
     
                 if (scrollableContainer.length === 0){
                     scrollableContainer = $(window);
@@ -34,7 +36,7 @@
 
                 function determineVisibility(){
                     var scrollTop = scrollableContainer.scrollTop() + scope.scrollStop;
-                    var contentTop = content.offset().top;
+                    var contentTop = content.offset().top + contentOffset;
                     var contentBottom = contentTop + content.outerHeight(false);
 
                     if ( (scrollTop > contentTop) && (scrollTop < contentBottom) ) {
