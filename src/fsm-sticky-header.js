@@ -109,35 +109,196 @@
         };
     }]);
     
-    fsm.directive('fsmMenuButton', [function(){
+    fsm.directive('fsmMenu', ['$location', function ($location) {
+        return {
+            restrict: 'A',
+            scope: {},
+            link: function (scope, el, attrs) {
+                var navigationMenu = angular.element(el);
+                var menuTitles = navigationMenu.find('.fsm-menu-title');
+                var menuItems = navigationMenu.find('[tc-menu-item]:visible');
+                var activeMenu = 0;
+
+                function menuOnClick(e) {
+                    var menuTitle = angular.element(e.currentTarget);
+                    // Find if our menu item has submenu items
+                    var submenu = menuTitle.next('.fsm-sub-menu');
+
+                    // If there is submenus, then we wan to either open or close the folder
+                    submenu.slideToggle('fast', function () {
+                        // swap the arrow from up to down, or vise-versa
+                        var chevron = menuTitle.children('[class*=\'fa-chevron\']');
+                        chevron.toggleClass('fa-chevron-down fa-chevron-up');
+
+                        // Find the list of currently visible menu items for keyboarding through.
+                        menuItems = navigationMenu.find('[tc-menu-item]:visible');
+                    });
+
+                }
+
+                function menuOnKeydown(e) {
+                    activeMenu = getCurrentMenuItem();
+
+                    if (e.keyCode === 9) {
+                        tabOutOfMenu(e);
+                    } else if (e.keyCode === 13 || e.keyCode === 37 || e.keyCode === 39) {
+                        triggerMenuItem(e);
+                    } else if (e.keyCode === 38 || e.keyCode === 40) {
+                        highlightMenuItem(e);
+                    }
+                }
+
+                function tabOutOfMenu(e) {
+                    if (e.shiftKey) {
+                        $('[fsm-menu-button]').focus();
+                    } else {
+                        var firstTabItem = $('[tabindex=1]');
+
+                        if (firstTabItem.length == 0) {
+                            return;
+                        } else {
+                            firstTabItem.focus();
+                        }
+                    }
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+
+                function triggerMenuItem(e) {
+                    e.currentTarget = $(menuItems[activeMenu]).children('a').first();
+                    menuOnClick(e);
+                }
+
+                function highlightMenuItem(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    if (e.keyCode === 38) {
+                        if (activeMenu > 0) {
+                            $(menuItems[activeMenu - 1]).children('a').first().focus();
+                        } else {
+                            $(menuItems[menuItems.length - 1]).children('a').first().focus();
+                        }
+                    } else if (e.keyCode === 40) {
+                        if (activeMenu < (menuItems.length - 1)) {
+                            $(menuItems[activeMenu + 1]).children('a').first().focus();
+                        } else {
+                            $(menuItems[0]).children('a').first().focus();
+                        }
+                    }
+                }
+
+                function getCurrentMenuItem() {
+                    var focusedMenu = navigationMenu.find(':focus');
+
+                    if (focusedMenu.length === 1) {
+                        return menuItems.index(focusedMenu.parent('[tc-menu-item]').first());
+                    }
+
+                    return menuItems.index(navigationMenu.find('[tc-menu-item].active').first());
+                }
+
+                function menuOnFocus(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    activeMenu = getCurrentMenuItem();
+                    $(menuItems[activeMenu]).children('a').first().focus();
+                }
+
+                menuTitles.click(menuOnClick);
+                navigationMenu.keydown(menuOnKeydown);
+                navigationMenu.focus(menuOnFocus);
+
+                scope.$watch(function () {
+                    return $location.path();
+                }, function (path) {
+                    // grab all the a tags that start with #, indicating and angular route.
+                    var allMenuItems = el.find('a[href^=\'#\']');
+
+                    angular.forEach(allMenuItems, function (menuItem) {
+                        var menu = angular.element(menuItem);
+                        var link = menu.attr('href').split('#')[1];
+
+                        if (path.indexOf(link) == 0) {
+                            // activate the menu item
+                            angular.element(menuItem.parentElement).addClass('active');
+
+                            // open up the submenus if they are not open
+                            var submenus = menu.parents('.fsm-sub-menu');
+                            submenus.show();
+
+                            // turn the chevrons up on the menu titles
+                            var chevrons = submenus.prev().children('[class*=\'fa-chevron\']');
+                            chevrons.removeClass('fa-chevron-down');
+                            chevrons.addClass('fa-chevron-up');
+                        } else {
+                            angular.element(menuItem.parentElement).removeClass('active');
+                        }
+                    });
+
+                    menuItems = navigationMenu.find('[tc-menu-item]:visible');
+                });
+            }
+        }
+    }]);
+
+    fsm.directive('fsmMenuButton', function () {
         return {
             restrict: 'EA',
             replace: false,
-            scope: { },
-            link: function(scope, element, attributes, control){
+            scope: {},
+            link: function (scope, element, attributes, control) {
                 var menuButton = $(element, this);
-                
-                function setMenuSpin(){
-                    menuButton.find('.fsm-menu-button-open').toggleClass('fsm-spin-forward');
-                    menuButton.find('.fsm-menu-button-closed').toggleClass('fsm-spin-backward');
+
+                menuButton.addClass('fsm-menu-button');
+                menuButton.keydown(menuOnKeydown);
+                $('body').keydown(bodyOnKeydown);
+
+                function bodyOnKeydown(e) {
+                    if (e.keyCode === 77 && e.ctrlKey && e.altKey) {
+                        if (isMenuClosed()) {
+                            menuOnClick();
+                        }
+                        $('[fsm-menu]').focus();
+                    } else if (e.keyCode === 77 && e.ctrlKey) {
+                        menuButton.focus();
+                        menuOnClick();
+                    }
                 }
-    
+
+                function isMenuClosed() {
+                    return $('body').hasClass('fsm-menu-toggle');
+                }
+
                 function menuOnClick() {
                     $('body').toggleClass('fsm-menu-toggle');
                     setMenuSpin();
                     setTimeout(setMenuSpin, 50);
+                };
+
+                function menuOnKeydown(e) {
+                    if (e.keyCode === 32 || e.keyCode === 13) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        menuOnClick();
+                    }
                 }
-                
-                menuButton.addClass('fsm-menu-button');
+
+                function setMenuSpin() {
+                    menuButton.find('.fsm-menu-button-open').toggleClass('fsm-spin-forward');
+                    menuButton.find('.fsm-menu-button-close').toggleClass('fsm-spin-backward');
+                };
+
                 menuButton.on('click.fsmMenuButton', menuOnClick);
 
                 scope.$on('$destroy', function() {
-                    menuButton.off('.fsmSort');
-                });
-    
+                    menuButton.off('.fsmMenuButton');
+                });                
             }
-        };
-    }]);
+        }
+    });
     
     fsm.directive('fsmBigData', ['$filter', function ($filter) {
     
@@ -228,9 +389,7 @@
                             transcludedScope.$apply(nextPage);
                         }
                     }
-    
-                    page.on('scroll.fsmBigData', onPageScroll).trigger('scroll');
-    
+        
                     scope.$parent.$watchCollection(sourceData, function (newData) {
                         if (newData){
                             rawData = newData;
@@ -239,6 +398,8 @@
                     });
     
                     scope.addSortColumn = addSortColumn;
+
+                    page.on('scroll.fsmBigData', onPageScroll).trigger('scroll');
 
                     scope.$on('$destroy', function() {
                         page.off('.fsmBigData');
