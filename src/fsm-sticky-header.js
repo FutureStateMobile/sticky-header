@@ -132,7 +132,7 @@
                 menuButton.on('click.fsmMenuButton', menuOnClick);
 
                 scope.$on('$destroy', function() {
-                    menuButton.off('.fsmSort');
+                    menuButton.off('.fsmMenuButton');
                 });
     
             }
