@@ -23,7 +23,7 @@
                 }
 
                 function setColumnHeaderSizes() {
-                    if (clonedHeader.is('tr')) {
+                    if (clonedHeader.is('tr') || clonedHeader.is('thead')) {
                         var clonedColumns = clonedHeader.find('th');
                         header.find('th').each(function (index, column) {
                             var clonedColumn = $(clonedColumns[index]);

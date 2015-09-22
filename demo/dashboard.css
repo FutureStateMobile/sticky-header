@@ -251,6 +251,11 @@ th {
   text-align: left;
 }
 
+th > tr {
+  /*width: 100%;*/
+  border-top: 1px solid #d8d8d8;
+}
+
 tr {
   border-top: 1px solid #d8d8d8;
 }
