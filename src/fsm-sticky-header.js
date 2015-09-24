@@ -327,10 +327,11 @@
                 var page = $(window);
                 var sortTypes = [ 'None', 'Ascending', 'Descending' ];
                 var sortColumns = [];
-    
-                scope.sortTypes = sortTypes;
-    
-                transclude(scope, function (clone, transcludedScope) {
+        
+                transclude(function (clone, transcludedScope) {
+
+                    transcludedScope.sortTypes = sortTypes;
+
                     element.append(clone);
                     transcludedScope[pagedDataName] = pagedData;
     
@@ -377,10 +378,10 @@
                     }
     
                     function onPageScroll() {
-                        var s = $(window).scrollTop(),
-                        d = $(document).height(),   
-                        c = $(window).height(),
-                        scrollPercent = (s / (d-c));
+                        var s = $(window).scrollTop();
+                        var d = $(document).height();
+                        var c = $(window).height();
+                        var scrollPercent = (s / (d-c));
     
                         if (scrollPercent > 0.98) {
                             // We use scope.apply here to tell angular about these changes because 
@@ -390,18 +391,18 @@
                         }
                     }
         
-                    scope.$parent.$watchCollection(sourceData, function (newData) {
+                    transcludedScope.$parent.$watchCollection(sourceData, function (newData) {
                         if (newData){
                             rawData = newData;
                             renderData();
                         }
                     });
     
-                    scope.addSortColumn = addSortColumn;
+                    transcludedScope.addSortColumn = addSortColumn;
 
                     page.on('scroll.fsmBigData', onPageScroll).trigger('scroll');
 
-                    scope.$on('$destroy', function() {
+                    transcludedScope.$on('$destroy', function() {
                         page.off('.fsmBigData');
                     });
                 });

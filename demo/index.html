@@ -96,8 +96,7 @@
 				<table id="testtable" fsm-big-data="dataPage of test.data take 50">
 			        <thead fsm-sticky-header scroll-body="'#testtable'" scroll-stop="50">
 			        	<tr>
-							<!-- This is an inner transcluded scope, so we need to use "$parent" to access the outer scope  -->
-			        		<th colspan="2">Total records: {{::$parent.test.data.length | number: 0}}</th>
+			        		<th colspan="2">Total records: {{::test.data.length | number: 0}}</th>
 			        		<th style="text-align: right" colspan="2">Displayed records: {{dataPage.length | number: 0}}</th>
 			        	</tr>
 			        	<tr>
