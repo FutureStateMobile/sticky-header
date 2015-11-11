@@ -25,10 +25,17 @@ bower install fsm-sticky-header
 	<script src="https://rawgithub.com/FutureStateMobile/sticky-headers/master/src/fsm-sticky-header.js"></script>
   </head>
 ```
+
+Then include the `fsm` Angular module in your own module:
+
+```js
+angular.module('MyHappyModule', ['fsm']);
+```
+
 Then add the directive to the element that you with to stick to the top of the page
 
 ```html
-  <table id="testtable" >
+  <table ng-app="MyHappyModule" id="testtable">
     <thead>
       <tr fsm-sticky-header scroll-body="'#testtable'" scroll-stop='50'>
          <th>Column One Header</th>
