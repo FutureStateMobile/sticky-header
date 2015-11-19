@@ -58,3 +58,8 @@ Options
    * this is how many pixels from the top of the page your elment will stop scrolling at, just in case you have a header on the top of your page.
 * scrollable-container
    * If you have a scrollable element such as a div, rather than the web page body scrolling, you'll need to specify that element id here.
+
+Browser Support
+--------
+
+We support the current versions of Chrome, Firefox, Safari, Microsoft Edge and Internet Explorer 10+.
