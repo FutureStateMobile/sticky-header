@@ -29,7 +29,10 @@
                         var clonedColumns = clonedHeader.find('th');
                         header.find('th').each(function (index, column) {
                             var clonedColumn = $(clonedColumns[index]);
-                            clonedColumn.css( 'width', column.offsetWidth + 'px');
+                            //clonedColumn.css( 'width', column.offsetWidth + 'px'); fixed thead width
+                            // fluid thead / table
+                            var finalWidthSet = column.offsetWidth / ($(window).innerWidth()-20)*100; // $(window) can be replace with a custom wrapper / container
+                            clonedColumn.css('width',finalWidthSet + '%');
                         });
                     }
                 };
