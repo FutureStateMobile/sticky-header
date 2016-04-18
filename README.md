@@ -12,10 +12,15 @@ An AngularJS directive for making headers that won't scroll past the top of the 
 How to use it
 -------------
 
-Just include jquery, angular, and the sticky-headers javascript file in your page, or install via bower
+Just include jQuery, Angular, and the sticky-headers JavaScript file in your page. You can also install it
+using either `bower` or `npm`:
 
 ```
 bower install fsm-sticky-header
+
+# or
+
+npm install fsm-sticky-header
 ```
 
 ```html

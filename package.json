@@ -1,0 +1,32 @@
+{
+  "name": "sticky-header",
+  "version": "0.1.0",
+  "description": "An angularjs directive for making headers that don't scroll past the top of the screen",
+  "main": "src/fsm-sticky-header.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FutureStateMobile/sticky-header"
+  },
+  "dependencies": {
+    "angular": "1.4.*",
+    "jquery": "2.1.*"
+  },
+  "bugs": {
+    "url": "https://github.com/FutureStateMobile/sticky-header/issues"
+  },
+  "homepage": "https://github.com/FutureStateMobile/sticky-header",
+  "author": "Future State Mobile",
+  "contributors": [
+    { "name": "Jonathan Petitcolas", "email": "petitcolas.jonathan@gmail.com" },
+    { "name": "Keith Larsen" },
+    { "name": "Ivan Rey" },
+    { "name": "Michael Schramm" },
+    { "name": "Valentin Hervieu" },
+    { "name": "Anthanh" },
+    { "name": "Chase Florell" },
+    { "name": "cmelo" },
+    { "name": "gijskooij" },
+    { "name": "raz-varren" }
+  ],
+  "license": "MIT"
+}
