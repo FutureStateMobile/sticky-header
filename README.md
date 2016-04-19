@@ -42,7 +42,7 @@ Then add the directive to the element that you with to stick to the top of the p
 ```html
   <table ng-app="MyHappyModule" id="testtable">
     <thead>
-      <tr fsm-sticky-header scroll-body="'#testtable'" scroll-stop='50'>
+      <tr fsm-sticky-header scroll-body="#testtable" scroll-stop='50'>
          <th>Column One Header</th>
          <th>Column Two Header</th>
       </tr>
