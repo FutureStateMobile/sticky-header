@@ -13,7 +13,7 @@
                 scrollableContainer: '=',
                 contentOffset: '=',
 				fsmZIndex: '=',
-                fsmIsFluid: '='
+                fsmIsFixed: '='
             },
             link: function(scope, element, attributes, control){
                 var content,
@@ -37,7 +37,7 @@
                         var clonedColumns = clonedHeader.find('th');
                         header.find('th').each(function (index, column) {
                             var clonedColumn = $(clonedColumns[index]);
-                            if (!scope.fsmIsFluid) {
+                            if (scope.fsmIsFixed) {
                                 clonedColumn.css( 'width', column.offsetWidth + 'px');
                             } else {
                                 var finalWidthSet = column.offsetWidth / ($(window).innerWidth()-20)*100; // $(window) can be replace with a custom wrapper / container
