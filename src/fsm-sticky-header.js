@@ -3,7 +3,7 @@
 (function(angular){
     var fsm = angular.module('fsm', []);
 
-    fsm.directive('fsmStickyHeader', [function(){
+    fsm.directive('fsmStickyHeader', ['$timeout', function($timeout){
         return {
             restrict: 'EA',
             replace: false,
@@ -23,7 +23,7 @@
 
                 var unbindScrollBodyWatcher = scope.$watch('scrollBody', function(newValue, oldValue) {
                     content = $(scope.scrollBody);
-                    init();
+                    $timeout( init, 500);
                     unbindScrollBodyWatcher();
                 });
 
@@ -398,7 +398,7 @@
                         var scrollPercent = (s / (d-c));
 
                         if (scrollPercent > 0.98) {
-                            // We use scope.apply here to tell angular about these changes because 
+                            // We use scope.apply here to tell angular about these changes because
                             // they happen outside of angularjs context... we're using jquery here
                             // to figure out when we need to load another page of data.
                             transcludedScope.$apply(nextPage);
