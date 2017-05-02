@@ -106,7 +106,13 @@
                     clonedHeader.css({
                         position: 'fixed',
                         'z-index': scope.fsmZIndex || 10000,
-                        visibility: 'hidden'
+                        visibility: 'hidden',
+                        /*
+                         Fix problem header displayed in new position after delay
+                         when scrolling.
+                         https://stanko.github.io/ios-safari-scoll-position-fixed/
+                         */
+                        transform: 'translate3d(0,0,0)'
                     });
                     calculateSize();
                 };
