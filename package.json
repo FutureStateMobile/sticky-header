@@ -8,8 +8,8 @@
     "url": "https://github.com/FutureStateMobile/sticky-header"
   },
   "dependencies": {
-    "angular": "1.4.*",
-    "jquery": "2.1.*"
+    "angular": ">1.4.*",
+    "jquery": ">2.1.*"
   },
   "bugs": {
     "url": "https://github.com/FutureStateMobile/sticky-header/issues"
