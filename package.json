@@ -1,6 +1,6 @@
 {
   "name": "sticky-header",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An angularjs directive for making headers that don't scroll past the top of the screen",
   "main": "src/fsm-sticky-header.js",
   "repository": {
